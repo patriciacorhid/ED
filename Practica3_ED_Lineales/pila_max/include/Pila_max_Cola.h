@@ -7,13 +7,14 @@
  *
  */
 
-#ifndef __PilaMax_VD__
-#define __PilaMax_VD__
+#ifndef __PilaMax_Cola__
+#define __PilaMax_Cola__
 
 #include <cassert>
 #include <iostream>
-#include <vectordinamico.h>
+#include "cola.h"
 
+using namespace std;
 /**
  *  @brief T.D.A. Pila
  *
@@ -52,7 +53,7 @@ ostream& operator << (ostream &flujo, const Pareja &p);
 class PilaMax{
  private:
 
-  VectorDinamico<Pareja> elementos;
+  Cola<Pareja> elementos;
 
  public:
   // ---------------  Constructores ----------------
@@ -103,4 +104,4 @@ class PilaMax{
   int maximo() const;
 };
 
-#endif // __PilaMax_VD__
+#endif // __PilaMax_Cola__

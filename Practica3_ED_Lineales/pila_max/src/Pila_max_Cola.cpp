@@ -1,7 +1,7 @@
 #include <iostream>
-#include <climits>
 #include <cassert>
-#include "Pila_max_VD.h"
+#include <climits>
+#include "Pila_max_Cola.h"
 
 using namespace std;
 
@@ -19,16 +19,15 @@ PilaMax& PilaMax::operator= (const PilaMax& otra){
 }
 
 bool PilaMax::vacia() const{
-  return elementos.empty();
+  return elementos.vacia();
 }
 
 Pareja& PilaMax:: tope(){
-  assert(!elementos.empty());
-  return elementos[elementos.used()-1];
+  return elementos.frente();
 }
 
 const Pareja& PilaMax:: tope() const{
-  return elementos[elementos.used()-1];
+  return elementos.frente();
 }
 
 void PilaMax:: poner(const int &n){
@@ -39,20 +38,31 @@ void PilaMax:: poner(const int &n){
   p.valor = n;
   p.max = mayor;
 
-  elementos.aniade(p);
+  PilaMax aux(*this);
+  elementos.poner(p);
+
+  int num=elementos.num_elementos()-1;
+
+  for(int i=0; i<num; i++){
+    elementos.quitar();
+  }
+
+  for(int i=0; i<num; i++){
+    elementos.poner(aux.tope());
+    aux.quitar();
+  }
 }
 
 void PilaMax:: quitar(){
-  assert(!elementos.empty());
-  elementos.elimina(elementos.used()-1);
+  elementos.quitar();
 }
 
 int PilaMax:: nelementos() const{
-  return elementos.used();
+  return elementos.num_elementos();
 }
 
 int PilaMax:: maximo() const{
 
-  if(elementos.empty()) return INT_MIN;
+  if(elementos.vacia()) return INT_MIN;
     return tope().max;
 }
